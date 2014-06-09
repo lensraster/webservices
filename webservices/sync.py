@@ -44,7 +44,7 @@ def provider_for_django(provider):
             django_key = 'HTTP_%s' % key.upper().replace('-', '_')
             return request.META.get(django_key, default)
         method = request.method
-        signed_data = request.raw_post_data
+        signed_data = request.body
         status_code, data = provider.get_response(method, signed_data, get_header)
         return HttpResponse(data, status=status_code)
     return csrf_exempt(provider_view)
